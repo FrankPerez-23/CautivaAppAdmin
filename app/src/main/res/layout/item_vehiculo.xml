@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/blanco">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Encabezado con Placa y Opciones -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/boton_opciones_vehiculo"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/texto_placa_vehiculo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/fondo_campo_texto"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/negro_cautiva"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="V4A-982" />
+
+                <!-- Badge de Estado -->
+                <TextView
+                    android:id="@+id/texto_estado_vehiculo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/fondo_insignia_activo"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/estado_activo"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="ACTIVO" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/boton_opciones_vehiculo"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Opciones de vehículo"
+                android:src="@drawable/ic_opciones"
+                app:tint="@color/gris_eslogan" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/gris_claro" />
+
+        <!-- Marca, Modelo y Año -->
+        <TextView
+            android:id="@+id/texto_detalle_vehiculo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/negro_cautiva"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Volvo FMX 440 • 2023" />
+
+        <!-- Capacidad de Carga del Mixer -->
+        <LinearLayout
+            android:id="@+id/contenedor_capacidad_vehiculo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="Capacidad"
+                android:src="@drawable/ic_camion"
+                app:tint="@color/naranja_cautiva" />
+
+            <TextView
+                android:id="@+id/texto_capacidad_vehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/gris_eslogan"
+                android:textSize="13sp"
+                tools:text="Capacidad Mixer: 8 m³" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

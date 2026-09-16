@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.CautivaAppAdmin" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/amarillo_cautiva</item>
+        <item name="colorOnPrimary">@color/negro_cautiva</item>
+        <item name="colorSecondary">@color/naranja_cautiva</item>
+        <item name="colorOnSecondary">@color/blanco</item>
+        <item name="android:statusBarColor">@color/negro_cautiva</item>
+        <item name="android:windowBackground">@color/fondo_app</item>
+    </style>
+
+    <style name="Theme.CautivaAppAdmin" parent="Base.Theme.CautivaAppAdmin" />
+</resources>

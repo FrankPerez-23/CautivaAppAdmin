@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/diseno_desplazable_mapa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Vista Principal del Mapa -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Fragmento del Mapa de Google -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapa_google"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Barra Flotante Superior con Botón Hamburguesa -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/tarjeta_barra_superior_mapa"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="27dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/negro_cautiva"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="16dp">
+
+                <!-- Botón Hamburguesa (3 rayas) -->
+                <ImageButton
+                    android:id="@+id/boton_menu_hamburguesa"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Abrir lista de trabajadores"
+                    android:src="@drawable/ic_menu_hamburguesa"
+                    app:tint="@color/amarillo_cautiva" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:text="@string/titulo_pestana_mapa"
+                    android:textColor="@color/blanco"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botón Flotante para Mi Ubicación (posicionado arriba de los controles de zoom) -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/boton_mi_ubicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="110dp"
+            android:contentDescription="Mi ubicación actual"
+            android:src="@android:drawable/ic_menu_myplaces"
+            app:backgroundTint="@color/blanco"
+            app:tint="@color/naranja_cautiva"
+            app:layout_constraintBottom_toTopOf="@id/tarjeta_info_chofer"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Tarjeta Flotante Inferior de Información del Chofer -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/tarjeta_info_chofer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/blanco"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Encabezado con Nombre y Botón Cerrar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/texto_nombre_chofer_mapa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/boton_cerrar_tarjeta_info"
+                        android:textColor="@color/negro_cautiva"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Javier Maldonado" />
+
+                    <ImageButton
+                        android:id="@+id/boton_cerrar_tarjeta_info"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Cerrar tarjeta"
+                        android:src="@android:drawable/ic_menu_close_clear_cancel"
+                        app:tint="@color/gris_eslogan" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@color/gris_claro" />
+
+                <!-- Grid de Datos -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Teléfono -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Teléfono"
+                            android:src="@drawable/ic_telefono"
+                            app:tint="@color/naranja_cautiva" />
+
+                        <TextView
+                            android:id="@+id/texto_telefono_chofer_mapa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:textColor="@color/negro_cautiva"
+                            android:textSize="13sp"
+                            tools:text="+51 987654321" />
+                    </LinearLayout>
+
+                    <!-- Camión Asignado -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Camión"
+                            android:src="@drawable/ic_camion"
+                            app:tint="@color/naranja_cautiva" />
+
+                        <TextView
+                            android:id="@+id/texto_camion_chofer_mapa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:textColor="@color/negro_cautiva"
+                            android:textSize="13sp"
+                            tools:text="ABC-123" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <!-- Velocidad -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Velocidad"
+                            android:src="@drawable/ic_velocidad"
+                            app:tint="@color/amarillo_cautiva" />
+
+                        <TextView
+                            android:id="@+id/texto_velocidad_chofer_mapa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:textColor="@color/negro_cautiva"
+                            android:textSize="13sp"
+                            tools:text="45.5 km/h" />
+                    </LinearLayout>
+
+                    <!-- Batería -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Batería"
+                            android:src="@drawable/ic_bateria"
+                            app:tint="@color/estado_activo" />
+
+                        <TextView
+                            android:id="@+id/texto_bateria_chofer_mapa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:textColor="@color/negro_cautiva"
+                            android:textSize="13sp"
+                            tools:text="85%" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Hora de Último Reporte -->
+                <TextView
+                    android:id="@+id/texto_ultima_actualizacion_mapa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/gris_eslogan"
+                    android:textSize="11sp"
+                    tools:text="Último reporte: Hace 2 minutos" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Panel Lateral / NavigationDrawer para la Lista de Trabajadores -->
+    <LinearLayout
+        android:id="@+id/panel_lateral_trabajadores"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/blanco"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/titulo_lista_trabajadores_lateral"
+            android:textColor="@color/negro_cautiva"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Selecciona para ubicar en el mapa"
+            android:textColor="@color/gris_eslogan"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="@color/gris_claro" />
+
+        <!-- RecyclerView de Lista Rápida Lateral -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_lista_lateral_trabajadores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_lateral_trabajador" />
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

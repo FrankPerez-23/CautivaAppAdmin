@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="12dp">
+
+    <!-- Indicador de Estado (Verde = Activo / Gris = Inactivo) -->
+    <ImageView
+        android:id="@+id/indicador_estado_lateral"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:contentDescription="Estado"
+        android:src="@drawable/ic_punto_estado" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/texto_nombre_lateral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/negro_cautiva"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Andy Miranda" />
+
+        <TextView
+            android:id="@+id/texto_camion_lateral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gris_eslogan"
+            android:textSize="12sp"
+            tools:text="Camión: ABC-123" />
+    </LinearLayout>
+
+</LinearLayout>

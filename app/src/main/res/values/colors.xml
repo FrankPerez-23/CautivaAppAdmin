@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta Oficial CAUTIVA -->
+    <color name="amarillo_cautiva">#F3B21B</color>
+    <color name="naranja_cautiva">#F27824</color>
+    <color name="rojo_cautiva">#D8262C</color>
+    <color name="negro_cautiva">#1D1D1B</color>
+    <color name="gris_eslogan">#7A7E83</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="fondo_app">#F5F6F8</color>
+
+    <!-- Estados Vehiculares -->
+    <color name="estado_activo">#43A047</color>
+    <color name="estado_mantenimiento">#F27824</color>
+    <color name="estado_inactivo">#E53935</color>
+
+    <!-- Colores Auxiliares de UI -->
+    <color name="black">#1D1D1B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gris_claro">#E0E0E0</color>
+    <color name="gris_medio">#9E9E9E</color>
+    <color name="gris_oscuro">#424242</color>
+    <color name="sombra_tarjeta">#1A000000</color>
+</resources>

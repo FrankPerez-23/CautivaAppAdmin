@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CAUTIVA Admin</string>
+
+    <!-- Login -->
+    <string name="subtitulo_login">Panel de Control Administrativo</string>
+    <string name="etiqueta_correo">Correo corporativo</string>
+    <string name="pista_correo">usuario@cautiva.com</string>
+    <string name="etiqueta_contrasena">Contraseña</string>
+    <string name="pista_contrasena">••••••••</string>
+    <string name="boton_iniciar_sesion">Iniciar Sesión</string>
+    <string name="error_campos_vacios">Por favor, ingresa tu correo y contraseña.</string>
+    <string name="error_acceso_denegado">Acceso denegado: esta app es exclusiva para administradores</string>
+
+    <!-- Navegación Inferior -->
+    <string name="titulo_pestana_mapa">Mapa</string>
+    <string name="titulo_pestana_trabajadores">Trabajadores</string>
+    <string name="titulo_pestana_vehiculos">Vehículos</string>
+    <string name="titulo_pestana_registro">Registrar</string>
+    <string name="titulo_pestana_configuracion">Ajustes</string>
+
+    <!-- Mapa -->
+    <string name="titulo_lista_trabajadores_lateral">Personal de Ruta</string>
+    <string name="sin_camion_asignado">Sin camión asignado</string>
+    <string name="velocidad_formato">%1$.1f km/h</string>
+    <string name="bateria_formato">%1$d%%</string>
+
+    <!-- Registro Trabajador -->
+    <string name="titulo_registro_trabajador">Registrar Nuevo Trabajador</string>
+    <string name="etiqueta_nombre">Nombre</string>
+    <string name="etiqueta_apellido">Apellido</string>
+    <string name="etiqueta_telefono">Teléfono de contacto</string>
+    <string name="etiqueta_clave_provisional">Contraseña provisional</string>
+    <string name="etiqueta_vehiculo_asignado">Vehículo asignado</string>
+    <string name="opcion_seleccionar_vehiculo">-- Seleccionar Vehículo --</string>
+    <string name="boton_registrar">Registrar Trabajador</string>
+    <string name="registro_exitoso">Trabajador registrado exitosamente</string>
+
+    <!-- Vehículos -->
+    <string name="titulo_pestana_gestion_vehiculos">Gestión Vehicular</string>
+    <string name="titulo_registro_vehiculo">Registrar Nuevo Vehículo</string>
+    <string name="etiqueta_placa">Placa de la unidad</string>
+    <string name="pista_placa">Ej. V4A-982 o ABC-123</string>
+    <string name="etiqueta_marca">Marca</string>
+    <string name="etiqueta_modelo">Modelo</string>
+    <string name="etiqueta_anio">Año de fabricación</string>
+    <string name="etiqueta_estado">Estado operativo</string>
+    <string name="etiqueta_capacidad_m3">Capacidad del Mixer (m³)</string>
+    <string name="boton_guardar_vehiculo">Guardar Vehículo</string>
+    <string name="error_placa_duplicada">La placa ingresada ya se encuentra registrada en la base de datos.</string>
+
+    <!-- Configuración -->
+    <string name="titulo_configuracion">Ajustes del Sistema</string>
+    <string name="perfil_administrador">Administrador Actual</string>
+    <string name="frecuencia_actualizacion">Frecuencia de actualización de mapa (segundos)</string>
+    <string name="filtro_choferes_movimiento">Mostrar solo choferes en movimiento</string>
+    <string name="alertas_bateria_baja">Alertas de batería baja (&lt; 15%)</string>
+    <string name="boton_cerrar_sesion">Cerrar Sesión</string>
+</resources>

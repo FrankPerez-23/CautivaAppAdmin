@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/opcion_mapa"
+        android:icon="@drawable/ic_mapa"
+        android:title="@string/titulo_pestana_mapa" />
+    <item
+        android:id="@+id/opcion_trabajadores"
+        android:icon="@drawable/ic_trabajadores"
+        android:title="@string/titulo_pestana_trabajadores" />
+    <item
+        android:id="@+id/opcion_vehiculos"
+        android:icon="@drawable/ic_camion"
+        android:title="@string/titulo_pestana_vehiculos" />
+    <item
+        android:id="@+id/opcion_registro"
+        android:icon="@drawable/ic_registro"
+        android:title="@string/titulo_pestana_registro" />
+    <item
+        android:id="@+id/opcion_configuracion"
+        android:icon="@drawable/ic_configuracion"
+        android:title="@string/titulo_pestana_configuracion" />
+</menu>
