@@ -74,14 +74,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/etiqueta_correo"
+                    app:placeholderText="@string/pista_correo"
                     app:startIconDrawable="@drawable/ic_correo">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_correo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:text="admin@cautiva.com" />
+                        android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Campo Contraseña -->
