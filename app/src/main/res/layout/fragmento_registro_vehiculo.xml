@@ -195,27 +195,45 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
+                        android:paddingStart="1dp"
+                        android:paddingEnd="1dp"
                         android:text="ACTIVO"
-                        android:textColor="@color/estado_activo" />
+                        android:textColor="@color/estado_activo"
+                        android:textSize="11sp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="9sp"
+                        app:autoSizeMaxTextSize="12sp" />
 
                     <RadioButton
                         android:id="@+id/radio_mantenimiento"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingStart="1dp"
+                        android:paddingEnd="1dp"
                         android:text="MANT."
-                        android:textColor="@color/estado_mantenimiento" />
+                        android:textColor="@color/estado_mantenimiento"
+                        android:textSize="11sp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="9sp"
+                        app:autoSizeMaxTextSize="12sp" />
 
                     <RadioButton
                         android:id="@+id/radio_inactivo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingStart="1dp"
+                        android:paddingEnd="1dp"
                         android:text="INACTIVO"
-                        android:textColor="@color/estado_inactivo" />
+                        android:textColor="@color/estado_inactivo"
+                        android:textSize="11sp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="9sp"
+                        app:autoSizeMaxTextSize="12sp" />
                 </RadioGroup>
 
-                <!-- Botones Guardar y Cancelar -->
+                <!-- Botones Guardar y Cancelar con Auto-Escalado Sensible -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -226,26 +244,35 @@
                         android:id="@+id/boton_cancelar_registro_vehiculo"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
-                        android:layout_height="54dp"
+                        android:layout_height="52dp"
                         android:layout_weight="1"
+                        android:paddingHorizontal="4dp"
                         android:text="Cancelar"
                         android:textAllCaps="false"
                         android:textColor="@color/gris_eslogan"
+                        android:textSize="14sp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeMaxTextSize="14sp"
                         app:cornerRadius="10dp"
                         app:strokeColor="@color/gris_claro" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/boton_guardar_vehiculo"
                         android:layout_width="0dp"
-                        android:layout_height="54dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1.5"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1.8"
                         android:backgroundTint="@color/naranja_cautiva"
+                        android:paddingHorizontal="4dp"
                         android:text="@string/boton_guardar_vehiculo"
                         android:textAllCaps="false"
                         android:textColor="@color/blanco"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeMaxTextSize="14sp"
                         app:cornerRadius="10dp" />
 
                 </LinearLayout>
