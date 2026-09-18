@@ -81,9 +81,9 @@ class ManejadorMapaAdmin(
             val esSenalReciente = diferenciaMinutos < 10
 
             val estadoSenalTexto = if (esSenalReciente) {
-                "Vel: ${ubicacion.velocidadKmh} km/h"
+                "Placa: $placa"
             } else {
-                "⚠️ Sin señal reciente (Última vez: hace ${diferenciaMinutos} min)"
+                "Placa: $placa | ⚠️ Sin señal reciente (hace ${diferenciaMinutos} min)"
             }
 
             val colorIconoResId = when {
@@ -96,9 +96,9 @@ class ManejadorMapaAdmin(
             val marcadorExistente = mapaMarcadores[trabajador.id]
 
             if (marcadorExistente != null) {
-                // Actualizar título y snippet (estado / velocidad / señal)
+                // Actualizar título y snippet
                 marcadorExistente.title = trabajador.nombreCompleto
-                marcadorExistente.snippet = "Placa: $placa | $estadoSenalTexto"
+                marcadorExistente.snippet = estadoSenalTexto
                 marcadorExistente.setIcon(crearIconoCamion(colorIconoResId))
 
                 // Animar interpolación suave de posición y rotación (Efecto InDrive)
@@ -108,6 +108,7 @@ class ManejadorMapaAdmin(
                 val opcionesMarcador = MarkerOptions()
                     .position(destinoLatLng)
                     .title(trabajador.nombreCompleto)
+                    .snippet(estadoSenalTexto)
                     .snippet("Placa: $placa | $estadoSenalTexto")
                     .icon(crearIconoCamion(colorIconoResId))
                     .rotation(rumboFinal)

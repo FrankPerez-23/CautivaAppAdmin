@@ -267,12 +267,12 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
         enlace.textoCamionChoferMapa.text = vehiculo?.placa ?: "Sin asignación"
 
         if (ubicacion != null) {
-            enlace.textoVelocidadChoferMapa.text = "${ubicacion.velocidadKmh} km/h"
+            enlace.textoVelocidadChoferMapa.text = "${ubicacion.velocidadKmh}"
             enlace.textoBateriaChoferMapa.text = "${ubicacion.nivelBateria ?: 0}%"
             val fechaFormateada = formatearFechaHora(ubicacion.ultimaActualizacion)
             enlace.textoUltimaActualizacionMapa.text = "Último reporte: $fechaFormateada"
         } else {
-            enlace.textoVelocidadChoferMapa.text = "0.0 km/h"
+            enlace.textoVelocidadChoferMapa.text = "0.0"
             enlace.textoBateriaChoferMapa.text = "--"
             enlace.textoUltimaActualizacionMapa.text = "Sin datos de reporte"
         }

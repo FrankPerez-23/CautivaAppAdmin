@@ -69,37 +69,52 @@
                 <!-- Campo Correo -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/contenedor_campo_correo"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/etiqueta_correo"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva"
                     app:placeholderText="@string/pista_correo"
-                    app:startIconDrawable="@drawable/ic_correo">
+                    app:startIconDrawable="@drawable/ic_correo"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_correo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Campo Contraseña -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/contenedor_campo_contrasena"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/etiqueta_contrasena"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:endIconTint="@color/gris_eslogan"
+                    app:hintTextColor="@color/naranja_cautiva"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_candado">
+                    app:startIconDrawable="@drawable/ic_candado"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_contrasena"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Mensaje de Error -->

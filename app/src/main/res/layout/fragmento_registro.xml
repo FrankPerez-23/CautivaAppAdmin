@@ -15,6 +15,7 @@
             android:id="@+id/texto_titulo_registro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             android:text="@string/titulo_registro_trabajador"
             android:textColor="@color/negro_cautiva"
             android:textSize="22sp"
@@ -42,82 +43,118 @@
 
                 <!-- Nombre -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/etiqueta_nombre"
-                    app:startIconDrawable="@drawable/ic_usuario">
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva"
+                    app:startIconDrawable="@drawable/ic_usuario"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_nombre_registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Apellido -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="@string/etiqueta_apellido"
-                    app:startIconDrawable="@drawable/ic_usuario">
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva"
+                    app:startIconDrawable="@drawable/ic_usuario"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_apellido_registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Correo Corporativo -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="@string/etiqueta_correo"
-                    app:startIconDrawable="@drawable/ic_correo">
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva"
+                    app:startIconDrawable="@drawable/ic_correo"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_correo_registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Teléfono -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="@string/etiqueta_telefono"
-                    app:startIconDrawable="@drawable/ic_telefono">
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva"
+                    app:startIconDrawable="@drawable/ic_telefono"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_telefono_registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Contraseña Provisional con Ojito -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="@string/etiqueta_clave_provisional"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:endIconTint="@color/gris_eslogan"
+                    app:hintTextColor="@color/naranja_cautiva"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_candado">
+                    app:startIconDrawable="@drawable/ic_candado"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_clave_provisional_registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Botón Registrar Chofer (#F27824) -->

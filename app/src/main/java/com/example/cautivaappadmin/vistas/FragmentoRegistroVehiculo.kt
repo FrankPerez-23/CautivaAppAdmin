@@ -5,7 +5,6 @@ import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -22,10 +21,6 @@ class FragmentoRegistroVehiculo : Fragment() {
 
     private var vehiculoAEditar: Vehiculo? = null
 
-    private val marcasSugeridas = listOf(
-        "Volvo", "Mercedes-Benz", "Scania", "Hino", "Mack", "International", "Freightliner", "Volkswagen"
-    )
-
     override fun onCreateView(
         inflador: LayoutInflater,
         contenedor: ViewGroup?,
@@ -40,14 +35,6 @@ class FragmentoRegistroVehiculo : Fragment() {
 
         // Forzar Placa en MAYÚSCULAS automáticamente
         enlace.campoPlacaVehiculo.filters = arrayOf(InputFilter.AllCaps())
-
-        // Configurar sugerencias de Marca
-        val adaptadorMarcas = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            marcasSugeridas
-        )
-        enlace.campoMarcaVehiculo.setAdapter(adaptadorMarcas)
 
         // Si se pasa un vehículo para edición
         if (vehiculoAEditar != null) {

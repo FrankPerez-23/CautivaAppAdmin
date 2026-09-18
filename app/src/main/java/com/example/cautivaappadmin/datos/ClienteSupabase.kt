@@ -54,11 +54,15 @@ object ClienteSupabase {
             .decodeSingle<Perfil>()
     }
 
-    // Obtener lista completa de trabajadores (CONDUCTOR, SUPERVISOR, ADMINISTRADOR)
+    // Obtener lista de trabajadores (excluyendo Administradores y Supervisores)
     suspend fun obtenerTrabajadores(): List<Perfil> {
         return cliente.postgrest["perfiles"]
             .select()
             .decodeList<Perfil>()
+            .filter { perfil ->
+                val rol = perfil.rol.trim().uppercase()
+                rol == "CONDUCTOR" || (rol != "ADMINISTRADOR" && rol != "SUPERVISOR" && rol != "ADMIN")
+            }
     }
 
     // Obtener lista de vehículos

@@ -6,8 +6,35 @@
         <item name="colorSecondary">@color/naranja_cautiva</item>
         <item name="colorOnSecondary">@color/blanco</item>
         <item name="android:statusBarColor">@color/negro_cautiva</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@color/fondo_app</item>
+
+        <!-- Colores globales para forzar texto, bordes e hints de campos en Tema Claro y Oscuro -->
+        <item name="android:editTextColor">@color/negro_cautiva</item>
+        <item name="android:textColor">@color/negro_cautiva</item>
+        <item name="android:textColorHint">@color/gris_eslogan</item>
+        <item name="editTextStyle">@style/EstiloCampoEdicionCautiva</item>
+        <item name="textInputStyle">@style/EstiloEntradaTextoCautiva</item>
     </style>
 
     <style name="Theme.CautivaAppAdmin" parent="Base.Theme.CautivaAppAdmin" />
+
+    <!-- Estilo unificado para el contenedor de texto (TextInputLayout) -->
+    <style name="EstiloEntradaTextoCautiva" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/blanco</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">@color/selector_borde_campo_texto</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="android:textColorHint">@color/gris_eslogan</item>
+        <item name="hintTextColor">@color/naranja_cautiva</item>
+        <item name="startIconTint">@color/gris_eslogan</item>
+        <item name="endIconTint">@color/gris_eslogan</item>
+    </style>
+
+    <!-- Estilo unificado para los campos de edición interna (TextInputEditText / EditText) -->
+    <style name="EstiloCampoEdicionCautiva" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/negro_cautiva</item>
+        <item name="android:textColorHint">@color/gris_eslogan</item>
+    </style>
 </resources>

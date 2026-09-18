@@ -17,6 +17,7 @@
             android:id="@+id/encabezado_registro_vehiculo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -64,80 +65,111 @@
 
                 <!-- Campo Placa -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/etiqueta_placa"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva"
                     app:placeholderText="@string/pista_placa"
-                    app:startIconDrawable="@drawable/ic_camion">
+                    app:startIconDrawable="@drawable/ic_camion"
+                    app:startIconTint="@color/gris_eslogan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_placa_vehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-                        android:maxLength="10" />
+                        android:maxLength="10"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Campo Marca con Autocompletado -->
+                <!-- Campo Marca (Ingreso Libre) -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="@string/etiqueta_marca">
+                    android:hint="@string/etiqueta_marca"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_marca_vehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapWords" />
+                        android:inputType="textCapWords"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Campo Modelo -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="@string/etiqueta_modelo">
+                    android:hint="@string/etiqueta_modelo"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_modelo_vehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapWords" />
+                        android:inputType="textCapWords"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Campo Año -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="@string/etiqueta_anio">
+                    android:hint="@string/etiqueta_anio"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_anio_vehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:maxLength="4" />
+                        android:maxLength="4"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Capacidad m3 -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/EstiloEntradaTextoCautiva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="@string/etiqueta_capacidad_m3">
+                    android:hint="@string/etiqueta_capacidad_m3"
+                    android:textColorHint="@color/gris_eslogan"
+                    app:boxBackgroundColor="@color/blanco"
+                    app:boxStrokeColor="@color/selector_borde_campo_texto"
+                    app:hintTextColor="@color/naranja_cautiva">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/campo_capacidad_m3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/negro_cautiva"
+                        android:textColorHint="@color/gris_eslogan" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Estado Operativo -->
@@ -197,6 +229,7 @@
                         android:layout_height="54dp"
                         android:layout_weight="1"
                         android:text="Cancelar"
+                        android:textAllCaps="false"
                         android:textColor="@color/gris_eslogan"
                         app:cornerRadius="10dp"
                         app:strokeColor="@color/gris_claro" />
@@ -209,6 +242,7 @@
                         android:layout_weight="1.5"
                         android:backgroundTint="@color/naranja_cautiva"
                         android:text="@string/boton_guardar_vehiculo"
+                        android:textAllCaps="false"
                         android:textColor="@color/blanco"
                         android:textSize="15sp"
                         android:textStyle="bold"

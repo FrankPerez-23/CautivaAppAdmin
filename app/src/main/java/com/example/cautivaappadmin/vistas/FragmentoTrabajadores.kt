@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cautivaappadmin.R
 import com.example.cautivaappadmin.adaptadores.AdaptadorTrabajadores
 import com.example.cautivaappadmin.databinding.DialogoEditarTrabajadorBinding
 import com.example.cautivaappadmin.databinding.FragmentoTrabajadoresBinding
