@@ -2,6 +2,7 @@ package com.example.cautivaappadmin
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.cautivaappadmin.databinding.ActivityMainBinding
 import com.example.cautivaappadmin.vistas.FragmentoConfiguracion
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private var fragmentoActual: Fragment = fragmentoMapa
 
     override fun onCreate(estadoGuardado: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(estadoGuardado)
         enlace = ActivityMainBinding.inflate(layoutInflater)
         setContentView(enlace.root)

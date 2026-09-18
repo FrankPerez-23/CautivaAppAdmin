@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.example.cautivaappadmin.MainActivity
 import com.example.cautivaappadmin.datos.ClienteSupabase
@@ -18,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var gestorSesion: GestorSesion
 
     override fun onCreate(estadoGuardado: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(estadoGuardado)
         enlace = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(enlace.root)

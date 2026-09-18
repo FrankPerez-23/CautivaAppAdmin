@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.CautivaAppAdmin" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Tema fijo para garantizar la misma paleta e inputs sin importar el modo del sistema -->
+    <style name="Base.Theme.CautivaAppAdmin" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/amarillo_cautiva</item>
         <item name="colorOnPrimary">@color/negro_cautiva</item>
         <item name="colorSecondary">@color/naranja_cautiva</item>
@@ -9,7 +10,7 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@color/fondo_app</item>
 
-        <!-- Colores globales para forzar texto, bordes e hints de campos en Tema Claro y Oscuro -->
+        <!-- Colores fijos permanentes para campos de texto -->
         <item name="android:editTextColor">@color/negro_cautiva</item>
         <item name="android:textColor">@color/negro_cautiva</item>
         <item name="android:textColorHint">@color/gris_eslogan</item>
