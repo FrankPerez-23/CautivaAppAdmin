@@ -29,10 +29,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Instant
 import java.time.format.DateTimeFormatter
 import java.text.SimpleDateFormat
@@ -77,6 +80,17 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onCreate(estadoGuardado: Bundle?) {
+        super.onCreate(estadoGuardado)
+        try {
+            com.google.android.gms.maps.MapsInitializer.initialize(
+                requireContext().applicationContext,
+                com.google.android.gms.maps.MapsInitializer.Renderer.LATEST,
+                null
+            )
+        } catch (_: Exception) {}
+    }
+
     override fun onCreateView(
         inflador: LayoutInflater,
         contenedor: ViewGroup?,
@@ -119,6 +133,9 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
         }
         enlace.recyclerListaLateralTrabajadores.adapter = adaptadorLateral
 
+        // Iniciar carga de datos de Supabase en paralelo inmediatamente (sin esperar al mapa)
+        iniciarBucleActualizacionEnVivo()
+
         // Inicializar fragmento del mapa de Google
         val mapaFragmento = childFragmentManager.findFragmentById(R.id.mapa_google) as? SupportMapFragment
         mapaFragmento?.getMapAsync(this)
@@ -137,9 +154,9 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
         // Inicializar manejador de marcadores con animación suave e interpolación
         manejadorMapaAdmin = ManejadorMapaAdmin(requireContext(), mapa)
 
-        // Posición por defecto mientras obtiene ubicación GPS (Lima, Perú)
-        val posicionInicial = LatLng(-12.046374, -77.042793)
-        mapaGoogle?.moveCamera(CameraUpdateFactory.newLatLngZoom(posicionInicial, 12f))
+        // Posición por defecto mientras obtiene ubicación GPS (Tacna, Perú)
+        val posicionInicial = LatLng(-18.013750, -70.252300)
+        mapaGoogle?.moveCamera(CameraUpdateFactory.newLatLngZoom(posicionInicial, 13f))
 
         // Intentar centrar en la ubicación actual del administrador
         obtenerUbicacionActualYCentrar()
@@ -217,11 +234,16 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
 
     private suspend fun cargarDatosMapa() {
         try {
-            // Cargar trabajadores, vehículos y ubicaciones en vivo desde Supabase
-            val trabajadores = ClienteSupabase.obtenerTrabajadores()
-            val vehiculos = ClienteSupabase.obtenerVehiculos().filter { it.id != null }.associateBy { it.id!! }
-            val ubicaciones = ClienteSupabase.obtenerUbicacionesEnVivo().associateBy { it.usuarioId }
+            // 1. Consultar Supabase en paralelo sobre Dispatchers.IO para evitar congelamiento de UI con 50+ vehículos
+            val (trabajadores, vehiculos, ubicaciones) = withContext(Dispatchers.IO) {
+                val defTrabajadores = async { ClienteSupabase.obtenerTrabajadores() }
+                val defVehiculos = async { ClienteSupabase.obtenerVehiculos().filter { it.id != null }.associateBy { it.id!! } }
+                val defUbicaciones = async { ClienteSupabase.obtenerUbicacionesEnVivo().associateBy { it.usuarioId } }
 
+                Triple(defTrabajadores.await(), defVehiculos.await(), defUbicaciones.await())
+            }
+
+            // 2. Actualizar estado y renderizar marcadores con ValueAnimator sobre el mapa
             this.listaTrabajadores = trabajadores
             this.mapaVehiculos = vehiculos
             this.mapaUbicaciones = ubicaciones
