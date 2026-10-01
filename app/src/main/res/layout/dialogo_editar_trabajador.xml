@@ -15,6 +15,7 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <!-- Nombre -->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/EstiloEntradaTextoCautiva"
         android:layout_width="match_parent"
@@ -35,6 +36,7 @@
             android:textColorHint="@color/gris_eslogan" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Apellido (Opcional) -->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/EstiloEntradaTextoCautiva"
         android:layout_width="match_parent"
@@ -55,6 +57,28 @@
             android:textColorHint="@color/gris_eslogan" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Correo Corporativo (Opcional) -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/EstiloEntradaTextoCautiva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Correo Corporativo (opcional)"
+        android:textColorHint="@color/gris_eslogan"
+        app:boxBackgroundColor="@color/blanco"
+        app:boxStrokeColor="@color/selector_borde_campo_texto"
+        app:hintTextColor="@color/naranja_cautiva">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campo_editar_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/negro_cautiva"
+            android:textColorHint="@color/gris_eslogan" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Teléfono (Opcional) -->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/EstiloEntradaTextoCautiva"
         android:layout_width="match_parent"
@@ -75,22 +99,28 @@
             android:textColorHint="@color/gris_eslogan" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/etiqueta_vehiculo_asignado"
-        android:textColor="@color/negro_cautiva"
-        android:textSize="13sp"
-        android:textStyle="bold" />
-
-    <Spinner
-        android:id="@+id/selector_editar_vehiculo"
+    <!-- Cambiar Contraseña (Opcional) -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/EstiloEntradaTextoCautiva"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/fondo_campo_texto"
-        android:paddingHorizontal="10dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Cambiar Contraseña (opcional)"
+        android:textColorHint="@color/gris_eslogan"
+        app:boxBackgroundColor="@color/blanco"
+        app:boxStrokeColor="@color/selector_borde_campo_texto"
+        app:endIconTint="@color/gris_eslogan"
+        app:hintTextColor="@color/naranja_cautiva"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campo_editar_clave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/negro_cautiva"
+            android:textColorHint="@color/gris_eslogan" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

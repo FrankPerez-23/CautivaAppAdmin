@@ -57,15 +57,6 @@ class AdaptadorVehiculos(
             }
         }
 
-        // Capacidad del Mixer
-        val capacidad = vehiculo.capacidadM3
-        if (capacidad != null && capacidad > 0) {
-            enlace.contenedorCapacidadVehiculo.visibility = View.VISIBLE
-            enlace.textoCapacidadVehiculo.text = "Capacidad Mixer: $capacidad m³"
-        } else {
-            enlace.contenedorCapacidadVehiculo.visibility = View.GONE
-        }
-
         // Menú de opciones de 3 puntos
         enlace.botonOpcionesVehiculo.setOnClickListener { vista ->
             mostrarMenuOpciones(contexto, vista, vehiculo)

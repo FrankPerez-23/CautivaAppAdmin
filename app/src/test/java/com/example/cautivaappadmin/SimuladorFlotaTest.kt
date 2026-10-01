@@ -53,7 +53,7 @@ class SimuladorFlotaTest {
             clienteSupabaseSimulador.postgrest["perfiles"]
                 .select()
                 .decodeList<Perfil>()
-                .filter { it.rol.uppercase() == "CONDUCTOR" }
+                .filter { it.rol.uppercase() == "CONDUCTOR" && !it.nombre.contains("Simulado", ignoreCase = true) }
         } catch (e: Exception) {
             println("Error consultando perfiles: ${e.localizedMessage}")
             emptyList()
@@ -186,14 +186,52 @@ class SimuladorFlotaTest {
     }
 
     /**
-     * Prueba individual para limpiar inmediatamente las ubicaciones en vivo y refrescar el mapa en blanco.
-     * Ejecútala en 1 clic ▶️ para dejar el mapa limpio.
+     * Elimina todos los perfiles ficticios creados por el simulador de la base de datos (perfiles y ubicaciones).
+     * Ejecútala en 1 clic ▶️ en Android Studio.
      */
     @Test
-    fun limpiarTelemetriaYSimulados() = runBlocking {
-        println("🧹 Limpiando la tabla 'ubicacion_en_vivo' en Supabase...")
-        limpiarTelemetriaInterna()
-        println("✅ Mapa limpiado con éxito en Supabase.")
+    fun eliminarUsuariosSimuladosDeBaseDeDatos() = runBlocking {
+        println("=========================================================")
+        println("🧹 ELIMINANDO USUARIOS FICTICIOS DE LA BASE DE DATOS")
+        println("=========================================================")
+
+        try {
+            // 1. Limpiar ubicaciones en vivo
+            limpiarTelemetriaInterna()
+
+            // 2. Obtener perfiles simulados (que contengan 'Simulado' o 'simulado')
+            val perfilesASuprimir = clienteSupabaseSimulador.postgrest["perfiles"]
+                .select()
+                .decodeList<Perfil>()
+                .filter { 
+                    it.nombre.contains("Simulado", ignoreCase = true) || 
+                    it.apellido.contains("Simulado", ignoreCase = true) ||
+                    (it.correo ?: "").contains("simulado", ignoreCase = true)
+                }
+
+            println("📋 Encontrados ${perfilesASuprimir.size} usuarios de prueba para eliminar de la tabla 'perfiles'.")
+
+            // 3. Eliminar los perfiles ficticios de la tabla 'perfiles'
+            perfilesASuprimir.forEach { perfil ->
+                try {
+                    clienteSupabaseSimulador.postgrest["perfiles"].delete {
+                        filter {
+                            eq("id", perfil.id)
+                        }
+                    }
+                    println("  -> Perfil ${perfil.nombreCompleto} (${perfil.id}) eliminado con éxito.")
+                } catch (e: Exception) {
+                    println("  -> Error eliminando perfil ${perfil.id}: ${e.localizedMessage}")
+                }
+            }
+
+            println("=========================================================")
+            println("✅ LIMPIEZA COMPLETA: Todos los usuarios de prueba fueron eliminados.")
+            println("=========================================================")
+
+        } catch (e: Exception) {
+            println("❌ Error en la eliminación: ${e.localizedMessage}")
+        }
     }
 
     private suspend fun limpiarTelemetriaInterna() {

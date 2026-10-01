@@ -93,7 +93,7 @@
                 tools:text="+51 987654322" />
         </LinearLayout>
 
-        <!-- Credencial / Clave Provisional -->
+        <!-- Credencial / Contraseña -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clave Prov: "
+                android:text="Contraseña: "
                 android:textColor="@color/gris_eslogan"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -128,7 +128,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Ver clave provisional"
+                android:contentDescription="Ver contraseña"
                 android:src="@drawable/ic_ojo"
                 app:tint="@color/naranja_cautiva" />
 
@@ -139,7 +139,7 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Copiar clave provisional"
+                android:contentDescription="Copiar contraseña"
                 android:src="@drawable/ic_copiar"
                 app:tint="@color/amarillo_cautiva" />
 

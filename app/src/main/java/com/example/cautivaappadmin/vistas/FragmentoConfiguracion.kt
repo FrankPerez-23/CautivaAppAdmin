@@ -69,15 +69,10 @@ class FragmentoConfiguracion : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // Configurar Switches
+        // Configurar Switch Filtro
         enlace.interruptorSoloMovimiento.isChecked = gestorSesion.soloEnMovimiento
         enlace.interruptorSoloMovimiento.setOnCheckedChangeListener { _, checked ->
             gestorSesion.soloEnMovimiento = checked
-        }
-
-        enlace.interruptorAlertaBateria.isChecked = gestorSesion.alertaBateriaBaja
-        enlace.interruptorAlertaBateria.setOnCheckedChangeListener { _, checked ->
-            gestorSesion.alertaBateriaBaja = checked
         }
 
         // Botón Cerrar Sesión

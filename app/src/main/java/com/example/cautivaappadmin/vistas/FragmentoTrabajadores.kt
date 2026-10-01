@@ -81,6 +81,10 @@ class FragmentoTrabajadores : Fragment() {
                 listaVehiculos = ClienteSupabase.obtenerVehiculos()
                 mapaVehiculos = listaVehiculos.filter { it.id != null }.associateBy { it.id!! }
 
+                val turnosActivos = ClienteSupabase.obtenerTurnosActivos()
+                    .filter { !it.vehiculoId.isNullOrEmpty() }
+                    .associate { it.usuarioId to it.vehiculoId!! }
+
                 enlace.barraCargandoTrabajadores.visibility = View.GONE
 
                 if (listaTrabajadores.isEmpty()) {
@@ -89,7 +93,7 @@ class FragmentoTrabajadores : Fragment() {
                 } else {
                     enlace.textoListaVacia.visibility = View.GONE
                     enlace.recyclerTrabajadores.visibility = View.VISIBLE
-                    adaptador?.actualizarDatos(listaTrabajadores, mapaVehiculos)
+                    adaptador?.actualizarDatos(listaTrabajadores, mapaVehiculos, turnosActivos)
                 }
 
             } catch (e: Exception) {
@@ -122,25 +126,9 @@ class FragmentoTrabajadores : Fragment() {
         // Prellenar campos
         enlaceDialogo.campoEditarNombre.setText(trabajador.nombre)
         enlaceDialogo.campoEditarApellido.setText(trabajador.apellido)
+        enlaceDialogo.campoEditarCorreo.setText(trabajador.correo ?: "")
         enlaceDialogo.campoEditarTelefono.setText(trabajador.telefono ?: "")
-
-        // Spinner de vehículos
-        val adaptadorSpinner = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            listaVehiculos
-        )
-        adaptadorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        enlaceDialogo.selectorEditarVehiculo.adapter = adaptadorSpinner
-
-        // Seleccionar vehículo actual si existe
-        val vehiculoActualId = trabajador.vehiculoAsignadoId
-        if (vehiculoActualId != null) {
-            val posicion = listaVehiculos.indexOfFirst { it.id == vehiculoActualId }
-            if (posicion >= 0) {
-                enlaceDialogo.selectorEditarVehiculo.setSelection(posicion)
-            }
-        }
+        enlaceDialogo.campoEditarClave.setText(trabajador.claveProvisional ?: "")
 
         enlaceDialogo.botonCancelarEdicion.setOnClickListener {
             dialogo.dismiss()
@@ -149,15 +137,17 @@ class FragmentoTrabajadores : Fragment() {
         enlaceDialogo.botonGuardarEdicion.setOnClickListener {
             val nuevoNombre = enlaceDialogo.campoEditarNombre.text.toString().trim()
             val nuevoApellido = enlaceDialogo.campoEditarApellido.text.toString().trim()
+            val nuevoCorreo = enlaceDialogo.campoEditarCorreo.text.toString().trim()
             val nuevoTelefono = enlaceDialogo.campoEditarTelefono.text.toString().trim()
+            val nuevaClave = enlaceDialogo.campoEditarClave.text.toString().trim()
 
-            val vehiculoSeleccionado = enlaceDialogo.selectorEditarVehiculo.selectedItem as? Vehiculo
-            val vehiculoId = vehiculoSeleccionado?.id
-
-            if (nuevoNombre.isEmpty() || nuevoApellido.isEmpty()) {
-                Toast.makeText(requireContext(), "Nombre y Apellido son obligatorios", Toast.LENGTH_SHORT).show()
+            if (nuevoNombre.isEmpty()) {
+                Toast.makeText(requireContext(), "El Nombre es obligatorio", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            val claveAFinal = if (nuevaClave.isNotEmpty()) nuevaClave else trabajador.claveProvisional
+            val correoAFinal = if (nuevoCorreo.isNotEmpty()) nuevoCorreo else trabajador.correo
 
             lifecycleScope.launch {
                 try {
@@ -166,8 +156,9 @@ class FragmentoTrabajadores : Fragment() {
                         nombre = nuevoNombre,
                         apellido = nuevoApellido,
                         telefono = nuevoTelefono,
-                        vehiculoId = vehiculoId,
-                        claveProvisional = trabajador.claveProvisional
+                        correo = correoAFinal,
+                        vehiculoId = trabajador.vehiculoAsignadoId,
+                        claveProvisional = claveAFinal
                     )
                     Toast.makeText(requireContext(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
                     dialogo.dismiss()

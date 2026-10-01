@@ -66,7 +66,6 @@ class FragmentoRegistroVehiculo : Fragment() {
         enlace.campoMarcaVehiculo.setText(vehiculo.marca ?: "")
         enlace.campoModeloVehiculo.setText(vehiculo.modelo ?: "")
         enlace.campoAnioVehiculo.setText(vehiculo.anio?.toString() ?: "")
-        enlace.campoCapacidadM3.setText(vehiculo.capacidadM3?.toString() ?: "")
 
         when (vehiculo.estado.uppercase()) {
             "MANTENIMIENTO" -> enlace.radioMantenimiento.isChecked = true
@@ -80,7 +79,6 @@ class FragmentoRegistroVehiculo : Fragment() {
         val marca = enlace.campoMarcaVehiculo.text.toString().trim()
         val modelo = enlace.campoModeloVehiculo.text.toString().trim()
         val anioTexto = enlace.campoAnioVehiculo.text.toString().trim()
-        val capacidadTexto = enlace.campoCapacidadM3.text.toString().trim()
 
         val estado = when (enlace.grupoEstadoVehiculo.checkedRadioButtonId) {
             R.id.radio_mantenimiento -> "MANTENIMIENTO"
@@ -94,12 +92,7 @@ class FragmentoRegistroVehiculo : Fragment() {
         }
 
         val anio = anioTexto.toIntOrNull()
-        if (anio != null && (anio < 1980 || anio > 2030)) {
-            Toast.makeText(requireContext(), "Ingresa un año válido (ej. 2023)", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val capacidadM3 = capacidadTexto.toDoubleOrNull()
+        val capacidadM3: Double? = null
 
         mostrarCargando(true)
 

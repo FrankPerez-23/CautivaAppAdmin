@@ -2,6 +2,7 @@ package com.example.cautivaappadmin.datos
 
 import com.example.cautivaappadmin.modelo.Perfil
 import com.example.cautivaappadmin.modelo.PerfilRegistroDto
+import com.example.cautivaappadmin.modelo.TurnoLaboral
 import com.example.cautivaappadmin.modelo.UbicacionEnVivo
 import com.example.cautivaappadmin.modelo.Vehiculo
 import io.github.jan.supabase.createSupabaseClient
@@ -161,6 +162,21 @@ object ClienteSupabase {
             .decodeList<UbicacionEnVivo>()
     }
 
+    // Obtener turnos laborales activos (EN_PROGRESO)
+    suspend fun obtenerTurnosActivos(): List<TurnoLaboral> {
+        return try {
+            cliente.postgrest["turnos_laborales"]
+                .select {
+                    filter {
+                        eq("estado", "EN_PROGRESO")
+                    }
+                }
+                .decodeList<TurnoLaboral>()
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
     // Actualizar estado activo/inactivo del perfil de un trabajador
     suspend fun cambiarEstadoTrabajador(usuarioId: String, activo: Boolean) {
         cliente.postgrest["perfiles"]
@@ -173,12 +189,13 @@ object ClienteSupabase {
             }
     }
 
-    // Actualizar datos del trabajador
+    // Actualizar datos del trabajador (perfil, clave de inicio de sesión y correo)
     suspend fun actualizarDatosTrabajador(
         usuarioId: String,
         nombre: String,
         apellido: String,
         telefono: String,
+        correo: String? = null,
         vehiculoId: String? = null,
         claveProvisional: String? = null
     ) {
@@ -191,11 +208,28 @@ object ClienteSupabase {
             }
         }
 
+        // Si el admin cambió la clave o el correo, intentar actualizar las credenciales de inicio de sesión en Supabase Auth
+        if (!claveProvisional.isNullOrEmpty() || !correo.isNullOrEmpty()) {
+            try {
+                val parametrosRpc = buildJsonObject {
+                    put("p_usuario_id", usuarioId)
+                    if (!claveProvisional.isNullOrEmpty()) put("p_nueva_clave", claveProvisional)
+                    if (!correo.isNullOrEmpty()) put("p_nuevo_correo", correo)
+                }
+                cliente.postgrest.rpc("actualizar_credenciales_usuario", parametrosRpc)
+            } catch (_: Exception) {
+                // Fallback silencioso si no está habilitada la RPC en la BD
+            }
+        }
+
         cliente.postgrest["perfiles"]
             .update({
                 set("nombre", nombre)
                 set("apellido", apellido)
                 set("telefono", telefono)
+                if (!correo.isNullOrEmpty()) {
+                    set("correo", correo)
+                }
                 set("metadatos", metadatosJson)
             }) {
                 filter {

@@ -68,18 +68,18 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Botón Flotante para Mi Ubicación (posicionado arriba de los controles de zoom) -->
+        <!-- Botón Flotante para Mi Ubicación (esquina derecha inferior) -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/boton_mi_ubicacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="24dp"
             android:contentDescription="Mi ubicación actual"
             android:src="@android:drawable/ic_menu_myplaces"
             app:backgroundTint="@color/blanco"
             app:tint="@color/naranja_cautiva"
-            app:layout_constraintBottom_toTopOf="@id/tarjeta_info_chofer"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Tarjeta Flotante Inferior de Información del Chofer -->
@@ -199,36 +199,10 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <!-- Velocidad -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="Velocidad"
-                            android:src="@drawable/ic_velocidad"
-                            app:tint="@color/amarillo_cautiva" />
-
-                        <TextView
-                            android:id="@+id/texto_velocidad_chofer_mapa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:textColor="@color/negro_cautiva"
-                            android:textSize="13sp"
-                            tools:text="45.5" />
-                    </LinearLayout>
-
                     <!-- Batería -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 

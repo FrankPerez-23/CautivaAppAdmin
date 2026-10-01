@@ -59,6 +59,7 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
     private var listaTrabajadores = listOf<Perfil>()
     private var mapaVehiculos = mapOf<String, Vehiculo>()
     private var mapaUbicaciones = mapOf<String, UbicacionEnVivo>()
+    private var mapaTurnosActivos = mapOf<String, String>()
 
     private var trabajoActualizacionEnVivo: Job? = null
 
@@ -144,12 +145,12 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
     override fun onMapReady(mapa: GoogleMap) {
         mapaGoogle = mapa
         mapaGoogle?.mapType = GoogleMap.MAP_TYPE_NORMAL
-        mapaGoogle?.uiSettings?.isZoomControlsEnabled = true
+        mapaGoogle?.uiSettings?.isZoomControlsEnabled = false
         mapaGoogle?.uiSettings?.isCompassEnabled = true
         mapaGoogle?.uiSettings?.isMyLocationButtonEnabled = false
 
-        // Reposicionar el logo de Google hacia abajo junto a la barra de navegación
-        mapaGoogle?.setPadding(0, 160, 0, 24)
+        // Reposicionar brújula y controles de Google Maps por debajo de la barra superior
+        mapaGoogle?.setPadding(0, 240, 0, 24)
 
         // Inicializar manejador de marcadores con animación suave e interpolación
         manejadorMapaAdmin = ManejadorMapaAdmin(requireContext(), mapa)
@@ -235,29 +236,33 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
     private suspend fun cargarDatosMapa() {
         try {
             // 1. Consultar Supabase en paralelo sobre Dispatchers.IO para evitar congelamiento de UI con 50+ vehículos
-            val (trabajadores, vehiculos, ubicaciones) = withContext(Dispatchers.IO) {
+            val (trabajadores, vehiculos, ubicaciones, turnos) = withContext(Dispatchers.IO) {
                 val defTrabajadores = async { ClienteSupabase.obtenerTrabajadores() }
                 val defVehiculos = async { ClienteSupabase.obtenerVehiculos().filter { it.id != null }.associateBy { it.id!! } }
                 val defUbicaciones = async { ClienteSupabase.obtenerUbicacionesEnVivo().associateBy { it.usuarioId } }
+                val defTurnos = async { ClienteSupabase.obtenerTurnosActivos().filter { !it.vehiculoId.isNullOrEmpty() }.associate { it.usuarioId to it.vehiculoId!! } }
 
-                Triple(defTrabajadores.await(), defVehiculos.await(), defUbicaciones.await())
+                listOf(defTrabajadores.await(), defVehiculos.await(), defUbicaciones.await(), defTurnos.await())
             }
 
-            // 2. Actualizar estado y renderizar marcadores con ValueAnimator sobre el mapa
-            this.listaTrabajadores = trabajadores
-            this.mapaVehiculos = vehiculos
-            this.mapaUbicaciones = ubicaciones
+            @Suppress("UNCHECKED_CAST")
+            this.listaTrabajadores = trabajadores as List<Perfil>
+            @Suppress("UNCHECKED_CAST")
+            this.mapaVehiculos = vehiculos as Map<String, Vehiculo>
+            @Suppress("UNCHECKED_CAST")
+            this.mapaUbicaciones = ubicaciones as Map<String, UbicacionEnVivo>
+            @Suppress("UNCHECKED_CAST")
+            this.mapaTurnosActivos = turnos as Map<String, String>
 
             // Actualizar adaptador de la lista rápida lateral
-            adaptadorLateral?.actualizarDatos(trabajadores, vehiculos, ubicaciones)
+            adaptadorLateral?.actualizarDatos(this.listaTrabajadores, this.mapaVehiculos, this.mapaUbicaciones, this.mapaTurnosActivos)
 
             // Sincronizar y animar marcadores sobre el mapa mediante el manejador especializado
             manejadorMapaAdmin?.sincronizarChoferes(
-                listaTrabajadores = trabajadores,
-                mapaVehiculos = vehiculos,
-                mapaUbicaciones = ubicaciones,
-                soloEnMovimiento = gestorSesion.soloEnMovimiento,
-                alertaBateriaBaja = gestorSesion.alertaBateriaBaja
+                listaTrabajadores = this.listaTrabajadores,
+                mapaVehiculos = this.mapaVehiculos,
+                mapaUbicaciones = this.mapaUbicaciones,
+                soloEnMovimiento = gestorSesion.soloEnMovimiento
             )
 
         } catch (e: Exception) {
@@ -282,19 +287,20 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
     }
 
     private fun mostrarTarjetaInfoChofer(trabajador: Perfil, ubicacion: UbicacionEnVivo?) {
-        val vehiculo = trabajador.vehiculoAsignadoId?.let { mapaVehiculos[it] }
+        val vehiculoIdDirecto = trabajador.vehiculoAsignadoId
+        val vehiculoIdTurno = mapaTurnosActivos[trabajador.id]
+        val vehiculoId = if (!vehiculoIdTurno.isNullOrEmpty()) vehiculoIdTurno else vehiculoIdDirecto
+        val vehiculo = if (!vehiculoId.isNullOrEmpty()) mapaVehiculos[vehiculoId] else null
 
         enlace.textoNombreChoferMapa.text = trabajador.nombreCompleto
         enlace.textoTelefonoChoferMapa.text = trabajador.telefono ?: "Sin teléfono"
-        enlace.textoCamionChoferMapa.text = vehiculo?.placa ?: "Sin asignación"
+        enlace.textoCamionChoferMapa.text = if (vehiculo != null) "Placa ${vehiculo.placa}" else "Sin asignación"
 
         if (ubicacion != null) {
-            enlace.textoVelocidadChoferMapa.text = "${ubicacion.velocidadKmh}"
             enlace.textoBateriaChoferMapa.text = "${ubicacion.nivelBateria ?: 0}%"
             val fechaFormateada = formatearFechaHora(ubicacion.ultimaActualizacion)
             enlace.textoUltimaActualizacionMapa.text = "Último reporte: $fechaFormateada"
         } else {
-            enlace.textoVelocidadChoferMapa.text = "0.0"
             enlace.textoBateriaChoferMapa.text = "--"
             enlace.textoUltimaActualizacionMapa.text = "Sin datos de reporte"
         }

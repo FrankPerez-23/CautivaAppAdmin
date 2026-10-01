@@ -14,6 +14,7 @@ class AdaptadorLateralTrabajadores(
     private var listaTrabajadores: List<Perfil>,
     private var mapaVehiculos: Map<String, Vehiculo>,
     private var mapaUbicaciones: Map<String, UbicacionEnVivo>,
+    private var mapaTurnosActivos: Map<String, String> = emptyMap(),
     private val alSeleccionar: (Perfil) -> Unit
 ) : RecyclerView.Adapter<AdaptadorLateralTrabajadores.VistaModeloLateral>() {
 
@@ -36,10 +37,14 @@ class AdaptadorLateralTrabajadores(
 
         enlace.textoNombreLateral.text = trabajador.nombreCompleto
 
-        // Vehículo asignado
-        val vehiculo = trabajador.vehiculoAsignadoId?.let { mapaVehiculos[it] }
+        // Vehículo asignado (priorizar turno activo de BD y luego metadatos)
+        val vehiculoIdDirecto = trabajador.vehiculoAsignadoId
+        val vehiculoIdTurno = mapaTurnosActivos[trabajador.id]
+        val vehiculoId = if (!vehiculoIdTurno.isNullOrEmpty()) vehiculoIdTurno else vehiculoIdDirecto
+        val vehiculo = if (!vehiculoId.isNullOrEmpty()) mapaVehiculos[vehiculoId] else null
+
         enlace.textoCamionLateral.text = if (vehiculo != null) {
-            "Camión: ${vehiculo.placa}"
+            "Camión: Placa ${vehiculo.placa}"
         } else {
             "Sin camión asignado"
         }
@@ -66,11 +71,13 @@ class AdaptadorLateralTrabajadores(
     fun actualizarDatos(
         nuevaLista: List<Perfil>,
         nuevoMapaVehiculos: Map<String, Vehiculo>,
-        nuevoMapaUbicaciones: Map<String, UbicacionEnVivo>
+        nuevoMapaUbicaciones: Map<String, UbicacionEnVivo>,
+        nuevoMapaTurnosActivos: Map<String, String> = emptyMap()
     ) {
         this.listaTrabajadores = nuevaLista.sortedBy { it.nombreCompleto.lowercase() }
         this.mapaVehiculos = nuevoMapaVehiculos
         this.mapaUbicaciones = nuevoMapaUbicaciones
+        this.mapaTurnosActivos = nuevoMapaTurnosActivos
         notifyDataSetChanged()
     }
 }

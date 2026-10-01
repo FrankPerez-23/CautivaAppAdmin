@@ -41,8 +41,7 @@ class ManejadorMapaAdmin(
         listaTrabajadores: List<Perfil>,
         mapaVehiculos: Map<String, Vehiculo>,
         mapaUbicaciones: Map<String, UbicacionEnVivo>,
-        soloEnMovimiento: Boolean,
-        alertaBateriaBaja: Boolean
+        soloEnMovimiento: Boolean
     ) {
         val tiempoActualMs = System.currentTimeMillis()
 
@@ -120,16 +119,6 @@ class ManejadorMapaAdmin(
                     mapaMarcadores[trabajador.id] = nuevoMarcador
                 }
             }
-
-            // Alerta opcional de batería baja (< 15%)
-            val nivelBateria = ubicacion.nivelBateria ?: 100
-            if (alertaBateriaBaja && nivelBateria < 15 && nivelBateria > 0) {
-                Toast.makeText(
-                    contexto,
-                    "⚠️ ¡Alerta! Batería baja (${nivelBateria}%) en unidad de ${trabajador.nombreCompleto}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         }
     }
 
@@ -173,19 +162,24 @@ class ManejadorMapaAdmin(
     }
 
     /**
-     * Convierte una cadena de fecha ISO o UTC a milisegundos Epoch.
+     * Convierte una cadena de fecha ISO, UTC o PostgreSQL a milisegundos Epoch de forma robusta.
      */
     private fun parsearFechaToEpochMs(fechaTexto: String?): Long {
-        if (fechaTexto.isNullOrEmpty()) return 0L
+        if (fechaTexto.isNullOrEmpty()) return System.currentTimeMillis()
+        val textoLimpio = fechaTexto.trim().replace(" ", "T")
         return try {
-            Instant.parse(fechaTexto).toEpochMilli()
+            java.time.OffsetDateTime.parse(textoLimpio).toInstant().toEpochMilli()
         } catch (_: Exception) {
             try {
-                val formato = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-                formato.timeZone = TimeZone.getTimeZone("UTC")
-                formato.parse(fechaTexto)?.time ?: 0L
+                java.time.Instant.parse(if (textoLimpio.endsWith("Z") || textoLimpio.contains("+")) textoLimpio else "${textoLimpio}Z").toEpochMilli()
             } catch (_: Exception) {
-                0L
+                try {
+                    val formato = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+                    formato.timeZone = TimeZone.getTimeZone("UTC")
+                    formato.parse(textoLimpio)?.time ?: System.currentTimeMillis()
+                } catch (_: Exception) {
+                    System.currentTimeMillis()
+                }
             }
         }
     }

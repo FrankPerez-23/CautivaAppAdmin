@@ -41,8 +41,8 @@ class FragmentoRegistro : Fragment() {
         val telefono = enlace.campoTelefonoRegistro.text.toString().trim()
         val claveProvisional = enlace.campoClaveProvisionalRegistro.text.toString().trim()
 
-        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || claveProvisional.isEmpty()) {
-            Toast.makeText(requireContext(), "Por favor completa todos los campos requeridos", Toast.LENGTH_SHORT).show()
+        if (nombre.isEmpty() || correo.isEmpty() || claveProvisional.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor ingresa Nombre, Correo y Contraseña", Toast.LENGTH_SHORT).show()
             return
         }
 
