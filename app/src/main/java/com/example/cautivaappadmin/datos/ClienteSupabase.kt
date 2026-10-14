@@ -238,20 +238,25 @@ object ClienteSupabase {
             }
     }
 
-    // Crear un nuevo chofer en la base de datos usando la función RPC
+    // Crear un nuevo chofer en la base de datos usando la función RPC (soportando campos opcionales)
     suspend fun registrarNuevoChofer(
         email: String,
         password: String,
         nombre: String,
-        apellido: String,
-        telefono: String
+        apellido: String? = null,
+        telefono: String? = null
     ): String {
+        val emailLimpio = email.trim().lowercase()
+        val nombreLimpio = nombre.trim()
+        val apellidoLimpio = if (apellido.isNullOrBlank()) "" else apellido.trim()
+        val telefonoLimpio = if (telefono.isNullOrBlank()) "" else telefono.trim()
+
         val parametrosRpc = buildJsonObject {
-            put("p_email", email)
+            put("p_email", emailLimpio)
             put("p_password", password)
-            put("p_nombre", nombre)
-            put("p_apellido", apellido)
-            put("p_telefono", telefono)
+            put("p_nombre", nombreLimpio)
+            put("p_apellido", apellidoLimpio)
+            put("p_telefono", telefonoLimpio)
             put("p_rol", "CONDUCTOR")
         }
 
@@ -266,10 +271,10 @@ object ClienteSupabase {
 
         val perfilDto = PerfilRegistroDto(
             id = usuarioId,
-            correo = email,
-            nombre = nombre,
-            apellido = apellido,
-            telefono = telefono,
+            correo = emailLimpio,
+            nombre = nombreLimpio,
+            apellido = apellidoLimpio,
+            telefono = if (telefonoLimpio.isEmpty()) null else telefonoLimpio,
             rol = "CONDUCTOR",
             activo = true,
             metadatos = metadatosJson

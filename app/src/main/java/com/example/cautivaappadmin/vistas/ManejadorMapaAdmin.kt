@@ -41,6 +41,7 @@ class ManejadorMapaAdmin(
         listaTrabajadores: List<Perfil>,
         mapaVehiculos: Map<String, Vehiculo>,
         mapaUbicaciones: Map<String, UbicacionEnVivo>,
+        mapaTurnosActivos: Map<String, String> = emptyMap(),
         soloEnMovimiento: Boolean
     ) {
         val tiempoActualMs = System.currentTimeMillis()
@@ -71,8 +72,11 @@ class ManejadorMapaAdmin(
             if (soloEnMovimiento && !ubicacion.enMovimiento) continue
 
             val destinoLatLng = LatLng(ubicacion.latitud, ubicacion.longitud)
-            val vehiculo = trabajador.vehiculoAsignadoId?.let { mapaVehiculos[it] }
-            val placa = vehiculo?.placa ?: "Sin vehículo"
+            val vehiculoIdDirecto = trabajador.vehiculoAsignadoId
+            val vehiculoIdTurno = mapaTurnosActivos[trabajador.id]
+            val vehiculoId = if (!vehiculoIdTurno.isNullOrEmpty()) vehiculoIdTurno else vehiculoIdDirecto
+            val vehiculo = if (!vehiculoId.isNullOrEmpty()) mapaVehiculos[vehiculoId] else null
+            val placa = vehiculo?.placa ?: "Sin asignación"
 
             // Validar antigüedad de señal (Umbral de 10 minutos = 600,000 ms)
             val fechaReporteMs = parsearFechaToEpochMs(ubicacion.ultimaActualizacion)

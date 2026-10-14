@@ -37,9 +37,12 @@ class FragmentoRegistro : Fragment() {
     private fun procesarRegistroConductor() {
         val nombre = enlace.campoNombreRegistro.text.toString().trim()
         val apellido = enlace.campoApellidoRegistro.text.toString().trim()
-        val correo = enlace.campoCorreoRegistro.text.toString().trim()
+        val correoRaw = enlace.campoCorreoRegistro.text.toString().trim()
         val telefono = enlace.campoTelefonoRegistro.text.toString().trim()
         val claveProvisional = enlace.campoClaveProvisionalRegistro.text.toString().trim()
+
+        // Eliminar espacios de correo automáticamente
+        val correo = correoRaw.replace(" ", "").lowercase()
 
         if (nombre.isEmpty() || correo.isEmpty() || claveProvisional.isEmpty()) {
             Toast.makeText(requireContext(), "Por favor ingresa Nombre, Correo y Contraseña", Toast.LENGTH_SHORT).show()
@@ -96,7 +99,7 @@ class FragmentoRegistro : Fragment() {
     private fun mostrarDialogoConfirmacion(nombre: String, apellido: String, correo: String, clave: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("Registro Exitoso")
-            .setMessage("Chofer registrado exitosamente con clave temporal: $clave\n\nNombre: $nombre $apellido\nCorreo: $correo")
+            .setMessage("Chofer registrado exitosamente.\n\nContraseña: $clave\nNombre: $nombre $apellido\nCorreo: $correo")
             .setPositiveButton("Aceptar", null)
             .show()
     }

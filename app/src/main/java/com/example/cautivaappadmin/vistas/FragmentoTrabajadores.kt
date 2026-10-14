@@ -68,6 +68,13 @@ class FragmentoTrabajadores : Fragment() {
         cargarDatos()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            cargarDatos()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         cargarDatos()
@@ -137,9 +144,11 @@ class FragmentoTrabajadores : Fragment() {
         enlaceDialogo.botonGuardarEdicion.setOnClickListener {
             val nuevoNombre = enlaceDialogo.campoEditarNombre.text.toString().trim()
             val nuevoApellido = enlaceDialogo.campoEditarApellido.text.toString().trim()
-            val nuevoCorreo = enlaceDialogo.campoEditarCorreo.text.toString().trim()
+            val nuevoCorreoRaw = enlaceDialogo.campoEditarCorreo.text.toString().trim()
             val nuevoTelefono = enlaceDialogo.campoEditarTelefono.text.toString().trim()
             val nuevaClave = enlaceDialogo.campoEditarClave.text.toString().trim()
+
+            val nuevoCorreo = nuevoCorreoRaw.replace(" ", "").lowercase()
 
             if (nuevoNombre.isEmpty()) {
                 Toast.makeText(requireContext(), "El Nombre es obligatorio", Toast.LENGTH_SHORT).show()

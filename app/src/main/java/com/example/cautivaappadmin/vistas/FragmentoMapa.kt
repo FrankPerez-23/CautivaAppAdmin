@@ -262,6 +262,7 @@ class FragmentoMapa : Fragment(), OnMapReadyCallback {
                 listaTrabajadores = this.listaTrabajadores,
                 mapaVehiculos = this.mapaVehiculos,
                 mapaUbicaciones = this.mapaUbicaciones,
+                mapaTurnosActivos = this.mapaTurnosActivos,
                 soloEnMovimiento = gestorSesion.soloEnMovimiento
             )
 

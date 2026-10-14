@@ -30,7 +30,7 @@
     <string name="etiqueta_nombre">Nombre</string>
     <string name="etiqueta_apellido">Apellido</string>
     <string name="etiqueta_telefono">Teléfono de contacto</string>
-    <string name="etiqueta_clave_provisional">Contraseña provisional</string>
+    <string name="etiqueta_clave_provisional">Contraseña</string>
     <string name="etiqueta_vehiculo_asignado">Vehículo asignado</string>
     <string name="opcion_seleccionar_vehiculo">-- Seleccionar Vehículo --</string>
     <string name="boton_registrar">Registrar Trabajador</string>
